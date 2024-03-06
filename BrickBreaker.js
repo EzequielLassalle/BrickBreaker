@@ -5,7 +5,7 @@ let pantallaAltura = 700
 
 let bloques = []
 let columnasB = 20;
-let filasB = 2;
+let filasB = 4;
 let numeroDeBloques = columnasB * filasB;
 
 
@@ -24,8 +24,8 @@ let pelota = {
     posiciony: pantallaAltura/2,
     ancho: 15,
     altura: 15,
-    velocidadx:4,
-    velocidady:2
+    velocidadx:2,
+    velocidady:4
 
 }
 
@@ -89,13 +89,16 @@ function moverPelota(){
         
     }
 
+
     if(detectarColisiones(pelota,jugador)){
         
         pelota.velocidady = pelota.velocidady * -1;
+
     } 
 
     if(pelota.posiciony <= 0){
         pelota.velocidady = pelota.velocidady * -1;
+        
     }
 
     if(pelota.posiciony + pelota.altura >= pantallaAltura){
@@ -157,7 +160,13 @@ function verificarChoque(pelota,bloque){
     if(detectarColisiones(pelota,bloque)){
         bloque.roto = true;
         numeroDeBloques -=1
-        pelota.velocidady *= -1;
+        
+        if(pelota.posiciony + pelota.altura <= bloque.posiciony + bloque.altura){
+            pelota.velocidadx *= -1;
+        }else{
+            pelota.velocidady *= -1;
+        }
+        
         
 
     }
@@ -174,10 +183,10 @@ function Bloques(){
         for(let j = 0;j<filasB;j++){
             
             let bloque = {
-                posicionx: 103 + i*15 + i*15,
+                posicionx: 102 + i*15 + i*15,
                 posiciony: 25 + j*15 + j*15,
-                ancho: 20,
-                altura:15,
+                ancho: 25,
+                altura:20,
                 roto: false,
             }
 
