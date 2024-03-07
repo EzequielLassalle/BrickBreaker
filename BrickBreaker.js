@@ -8,6 +8,7 @@ let bloques = []
 let columnasB = 10;
 let filasB = 2;
 let numeroDeBloques = columnasB * filasB;
+let perdiste = false;
 
 
 
@@ -75,6 +76,14 @@ function actualizar(){
     canvas.font = "30px sans-serif";
     canvas.fillText(puntaje,10,30);
 
+    if(perdiste == true){
+
+        canvas.fillStyle = "red"
+        canvas.font = "100px sans-serif";
+        canvas.fillText("FIN",pantallaAncho/2 - 80,400);
+        return;
+    }
+
 
     requestAnimationFrame(actualizar);
 
@@ -126,6 +135,7 @@ function moverPelota(){
 
     if(pelota.posiciony + pelota.altura >= pantallaAltura){
         
+        perdiste = true;
     } 
 
 
@@ -136,6 +146,22 @@ function moverPelota(){
 }
 
 function mover(event){
+
+    if(perdiste == true){
+        if(event.code == "Space"){
+            perdiste = false;
+            jugador.posicionx = pantallaAncho/2 - 50,
+            jugador.posiciony = pantallaAltura - 15,
+            pelota.posicionx = pantallaAncho/2,
+            pelota.posiciony = pantallaAltura/2
+            pelota.velocidadx = 2,
+            pelota.velocidady = 6,
+            puntaje = 0;
+            Bloques();
+            requestAnimationFrame(actualizar);
+            
+        }
+    }
 
     if(event.code == "KeyW" && !(borde(jugador.posicionx - jugador.velocidad))){
         jugador.posicionx -= jugador.velocidad;
