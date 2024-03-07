@@ -2,6 +2,7 @@
 let pantalla
 let pantallaAncho = 800
 let pantallaAltura = 700
+let puntaje = 0;
 
 let bloques = []
 let columnasB = 10;
@@ -9,10 +10,12 @@ let filasB = 2;
 let numeroDeBloques = columnasB * filasB;
 
 
+
+
 let jugador  = {
     posicionx: pantallaAncho/2 - 50,
     posiciony: pantallaAltura - 15,
-    ancho: 160,
+    ancho: 170,
     altura: 15,
     velocidad: 15,
 
@@ -24,7 +27,7 @@ let pelota = {
     posiciony: pantallaAltura/2,
     ancho: 20,
     altura: 20,
-    velocidadx:1,
+    velocidadx:2,
     velocidady:6
 
 }
@@ -67,6 +70,10 @@ function actualizar(){
         } 
         
     }
+
+    canvas.fillStyle = "blue"
+    canvas.font = "30px sans-serif";
+    canvas.fillText(puntaje,10,30);
 
 
     requestAnimationFrame(actualizar);
@@ -175,18 +182,11 @@ function detectarColisiones(bloqueA,bloqueB){
 function verificarChoque(pelota,bloque){
 
     if(detectarColisiones(pelota,bloque)){
+        puntaje += 100;
         bloque.roto = true;
         numeroDeBloques -= 1;
-        aleatorio = Math.floor(Math.random() * 100) + 1;
+        pelota.velocidady *= -1;
         
-        if(aleatorio>50){
-            pelota.velocidady *= -1;
-        }else if(aleatorio<50){
-            pelota.velocidady *= -1;
-            pelota.velocidadx *= -1;
-        }
-             
-
     }
 }
 
@@ -202,8 +202,8 @@ function Bloques(){
         for(let j = 0;j<filasB;j++){
             
             let bloque = {
-                posicionx: 125 + i*15 + i*40,
-                posiciony: 25 + j*15 + j*30,
+                posicionx: 55 + i*15 + i*55,
+                posiciony: 50 + j*15 + j*30,
                 ancho: 50,
                 altura:30,
                 roto: false,
